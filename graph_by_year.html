@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<title>Historic Register Removals</title>
+
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" />
+<![endif]-->
+
+<!--this stylesheet has the CSS for both a map and a table-->
+<link rel="stylesheet" href="lib/css/mapTable.css" />
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script src="data.js"></script>
+<script type="text/javascript">
+//google visualization libs we need
+google.load('visualization', '1.1', {packages: ['corechart']});
+</script>
+
+<script>
+//GRAPH BAR COLOR
+var barColor = '#51a9dc';
+
+
+
+//callback function that draws the grid
+function drawChart() {
+  // Create and populate the data table.
+  var data = google.visualization.arrayToDataTable(byYear);
+
+  // Create and draw the visualization.
+  var chartArea = {left:80,right:0,bottom:0,top:50,width:'80%',height:'80%'};
+  new google.visualization.ColumnChart(document.getElementById('chart')).
+      draw(data,
+           {
+			title:"Removals by Year",
+            width:'100%', height:400,
+			chartArea: chartArea,
+			colors: [ barColor ],
+			legend: {position: "none"},
+           // hAxis: {title: "Year"},
+            fontSize: 11,
+            titleTextStyle: {color: "black", fontSize:  13}
+			}
+      );
+}
+
+
+//we need to wait till all the google libraries are ready, then fire the callback
+google.setOnLoadCallback(drawChart);
+</script>
+
+</head>
+	<body>
+		<div id="wrapper">
+		<div id="chart" class="chart"></div>
+		<div id="sourceCreds">
+		Note: Vermont had no removals.<br />
+		Source: National Park Service<br />
+		Credits: Vaughn Hagerty, Adrienne LaFrance /DFM
+		</div>
+	</div>
+
+	</body>
+</html>
